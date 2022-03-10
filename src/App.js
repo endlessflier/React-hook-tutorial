@@ -47,6 +47,17 @@ const showTextList = [
   "LayoutEffectTutorial",
   "UseImperativeTutorial"
 ];
+
+const tutorialComponentArray = [
+  <StateTutorial />,
+  <RefTutorial />,
+  <MemoTutorial />,
+  <CallBackTutorial />,
+  <ContextTutorial />,
+  <EffectTutorial />,
+  <LayoutEffectTutorial />,
+  <ImperativeHandle />
+];
 const reducer = (state, action) => {
   switch (action.type) {
     case "INCREMENT":
@@ -66,7 +77,6 @@ const ReducerTutorial = () => {
     count: 0,
     showText: showTextList[0]
   });
-
   return (
     <div>
       <h1>{state.count}</h1>
@@ -79,14 +89,7 @@ const ReducerTutorial = () => {
         Click Here
       </button>
       <p>This is a {state.showText}</p>
-      {state.count === 0 && <StateTutorial />}
-      {state.count === 1 && <RefTutorial />}
-      {state.count === 2 && <MemoTutorial />}
-      {state.count === 3 && <CallBackTutorial />}
-      {state.count === 4 && <ContextTutorial />}
-      {state.count === 5 && <EffectTutorial />}
-      {state.count === 6 && <LayoutEffectTutorial />}
-      {state.count === 7 && <ImperativeHandle />}
+      {tutorialComponentArray[state.count]}
     </div>
   );
 };
