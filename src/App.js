@@ -3,6 +3,8 @@ import CallBackTutorial from "./CallbackTutorial";
 import MemoTutorial from "./MemoTutorial";
 import ContextTutorial from "./UseContext/ContextTutorial";
 import EffectTutorial from "./EffectTutorial";
+import LayoutEffectTutorial from "./LayoutEffectTutorial";
+import ImperativeHandle from "./UseImperativeHandle/ImperativeHandle";
 import "./styles.css";
 
 const StateTutorial = () => {
@@ -35,20 +37,35 @@ function RefTutorial() {
     </div>
   );
 }
-
+const showTextList = [
+  "StateTutorial",
+  "RefTutorial",
+  "MemoTutorial",
+  "CallBackTutorial",
+  "ContextTutorial",
+  "EffectTutorial",
+  "LayoutEffectTutorial",
+  "UseImperativeTutorial"
+];
 const reducer = (state, action) => {
   switch (action.type) {
     case "INCREMENT":
-      return { count: state.count + 1, showText: state.showText };
+      return {
+        count: (state.count + 1) % showTextList.length,
+        showText: state.showText
+      };
     case "toggleShowText":
-      return { count: state.count, showText: !state.showText };
+      return { count: state.count, showText: showTextList[state.count] };
     default:
       return state;
   }
 };
 
 const ReducerTutorial = () => {
-  const [state, dispatch] = useReducer(reducer, { count: 0, showText: true });
+  const [state, dispatch] = useReducer(reducer, {
+    count: 0,
+    showText: showTextList[0]
+  });
 
   return (
     <div>
@@ -61,8 +78,15 @@ const ReducerTutorial = () => {
       >
         Click Here
       </button>
-
-      {state.showText && <p>This is a text</p>}
+      <p>This is a {state.showText}</p>
+      {state.count === 0 && <StateTutorial />}
+      {state.count === 1 && <RefTutorial />}
+      {state.count === 2 && <MemoTutorial />}
+      {state.count === 3 && <CallBackTutorial />}
+      {state.count === 4 && <ContextTutorial />}
+      {state.count === 5 && <EffectTutorial />}
+      {state.count === 6 && <LayoutEffectTutorial />}
+      {state.count === 7 && <ImperativeHandle />}
     </div>
   );
 };
@@ -71,13 +95,7 @@ export default function App() {
     <div className="App">
       <h1>Hello CodeSandbox</h1>
       <h2>Start editing to see some magic happen!</h2>
-      <StateTutorial />
-      <RefTutorial />
       <ReducerTutorial />
-      <MemoTutorial />
-      <CallBackTutorial />
-      <ContextTutorial />
-      <EffectTutorial />
     </div>
   );
 }
